@@ -1,0 +1,14 @@
+---
+source: tui/src/chatwidget/tests.rs
+expression: popup
+---
+  Select Reasoning Level for test-server-model
+
+  1. Low                   low reasoning
+  2. Medium (default)      medium reasoning
+  3. High                  high reasoning
+› 4. Extra high (current)  xhigh reasoning
+                           ⚠ Extra high reasoning effort spends more time
+                           thinking, so turns get slower.
+
+  Press enter to confirm or esc to go back

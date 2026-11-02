@@ -1,0 +1,13 @@
+---
+source: tui/src/chatwidget/tests.rs
+expression: popup
+---
+  Select Reasoning Level for test-server-model
+
+› 1. Server default  Send no reasoning effort; let the model decide.
+  2. Low
+  3. Medium
+  4. High
+  5. Extra high
+
+  Press enter to confirm or esc to go back

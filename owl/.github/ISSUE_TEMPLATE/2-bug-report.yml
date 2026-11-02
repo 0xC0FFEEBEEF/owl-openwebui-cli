@@ -1,0 +1,72 @@
+name: 🪲 Bug Report
+description: Report an issue that should be fixed
+labels:
+  - bug
+  - needs triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a bug report! It helps make owl better for everyone.
+
+        If you need help or support using owl, and are not reporting a bug, please post on the [Discussions](https://github.com/0xC0FFEEBEEF/Owl/discussions) board, where you can ask questions or engage with others on ideas for how to improve owl.
+
+        Make sure you are running the newest build from this repository (`owl/install.sh`). The bug you are experiencing may already have been fixed.
+
+        Please try to include as much information as possible.
+
+  - type: input
+    id: version
+    attributes:
+      label: What version of owl is running?
+      description: Copy the output of `owl --version`
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Which model were you using?
+      description: The model name served by your Open WebUI server (or the `model = "..."` entry in `~/.owl/config.toml`).
+  - type: input
+    id: server
+    attributes:
+      label: What Open WebUI server (and version) are you connecting to?
+      description: The `base_url` under `[model_providers.openwebui]` in `~/.owl/config.toml` (redact any token).
+  - type: input
+    id: platform
+    attributes:
+      label: What platform is your computer?
+      description: |
+        For MacOS and Linux: copy the output of `uname -mprs`
+        For Windows: copy the output of `"$([Environment]::OSVersion | ForEach-Object VersionString) $(if ([Environment]::Is64BitOperatingSystem) { "x64" } else { "x86" })"` in the PowerShell console
+  - type: input
+    id: terminal
+    attributes:
+      label: What terminal emulator and version are you using (if applicable)?
+      description: |
+        Also note any multiplexer in use (screen / tmux / zellij).
+        E.g, VSCode, Terminal.app, iTerm2, Ghostty, Windows Terminal (WSL / PowerShell)
+  - type: textarea
+    id: actual
+    attributes:
+      label: What issue are you seeing?
+      description: Please include the full error messages and prompts with PII redacted. If possible, please provide text instead of a screenshot.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What steps can reproduce the bug?
+      description: Explain the bug and provide a code snippet that can reproduce it. Please include the session id and the model name if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is the expected behavior?
+      description: If possible, please provide text instead of a screenshot.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional information
+      description: Is there anything else you think we should know?

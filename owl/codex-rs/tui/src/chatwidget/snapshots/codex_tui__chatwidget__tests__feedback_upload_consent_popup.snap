@@ -1,0 +1,13 @@
+---
+source: tui/src/chatwidget/tests.rs
+expression: popup
+---
+  Include the logs in the report?
+
+  The report is written on this machine and never sent anywhere.
+    • recent owl logs
+
+› 1. Yes  Save the recent owl logs in the report, for troubleshooting.
+  2. No   Save only your note.
+
+  Press enter to confirm or esc to go back
