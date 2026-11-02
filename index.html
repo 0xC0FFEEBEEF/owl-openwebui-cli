@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Owl - the little owl, in the real screens</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #141210; --surface: #1b1815; --line: #2e2a25; --text: #e6e1d7; --text-dim: #9a9285;
+  --accent: #e26fd0; --owl: #cd00cd; --caret: #00cdcd;
+  --font-text: "Schibsted Grotesk", sans-serif; --font-mono: "JetBrains Mono", monospace;
+  --size-1: 0.8rem; --size-2: 1rem; --size-3: 1.25rem; --size-5: 2.2rem;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 40px;
+  --radius: 4px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-text); line-height: 1.5; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
+h1 { font-size: var(--size-5); font-weight: 700; margin: 0 0 var(--space-2); letter-spacing: -0.02em; }
+.lede { color: #c8bfb2; font-size: var(--size-2); margin: 0 0 var(--space-4); max-width: 70ch; }
+h2 { font-size: var(--size-3); font-weight: 700; margin: var(--space-6) 0 var(--space-3); padding-bottom: var(--space-2); border-bottom: 1px solid var(--line); }
+figure { margin: 0 0 var(--space-5); scroll-margin-top: var(--space-4); }
+figcaption { font-size: var(--size-2); font-weight: 700; margin-bottom: var(--space-2); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
+figure p { margin: var(--space-2) 0 0; font-size: var(--size-1); color: var(--text-dim); max-width: 75ch; }
+code { font-family: var(--font-mono); font-size: 0.92em; }
+pre.term { font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.35; margin: 0; padding: var(--space-3) var(--space-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; font-variant-numeric: tabular-nums; white-space: pre; }
+pre.term .owl { color: var(--owl); }
+pre.term .cyan { color: var(--caret); }
+pre.term .b { font-weight: 700; }
+.owlrow { display: grid; grid-template-columns: minmax(0, 430px) minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+@media (max-width: 760px) { .owlrow { grid-template-columns: 1fr; } }
+.live pre.term { border-top: 2px solid var(--owl); font-size: 1rem; line-height: 1.45; min-height: 9rem; }
+.stlabel { font-family: var(--font-mono); font-size: var(--size-1); color: var(--text-dim); border: 1px solid var(--line); border-radius: var(--radius); padding: 1px 7px; }
+button.pause { font-family: var(--font-text); font-size: var(--size-1); background: none; color: var(--text-dim); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-1) var(--space-3); cursor: pointer; }
+button.pause:hover { color: var(--accent); border-color: var(--accent); }
+button.pause:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ul.where { margin: 0; padding: var(--space-2) 0 0 var(--space-4); font-size: var(--size-1); color: var(--text-dim); }
+ul.where li { margin-bottom: var(--space-1); }
+.note { font-size: var(--size-1); color: var(--text-dim); border-top: 1px solid var(--line); margin-top: var(--space-6); padding-top: var(--space-3); max-width: 75ch; }
+.note ol { padding-left: var(--space-4); margin: var(--space-2) 0 0; }
+.note li { margin-bottom: var(--space-1); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Owl &mdash; the little owl, inside the real screens</h1>
+  <p class="lede">Your 8&nbsp;&times;&nbsp;4 owl is in the fork now, and the 23&nbsp;&times;&nbsp;60 braille owl is gone from the code and from this page. Every terminal block below is a capture from a run on this machine, with the colours those runs actually used: magenta for the owl art, cyan for the caret. The big owl animation options are dropped; the only open mascot question left is written at the bottom.</p>
+
+  <h2 id="s-state">Your owl, driven by your timings</h2>
+  <p class="lede">Frames, captions and millisecond values copied from the <code>frames.json</code> you attached, run by the rules in your README: 80&nbsp;ms tick, redraw only when the string changes, elapsed time reset on a state change, trailing spaces kept. The pass shown is one full cycle &mdash; idle through the 8300&nbsp;ms blink (half closed 4900&ndash;5020&nbsp;ms, closed 5020&ndash;5270&nbsp;ms, half closed to 5390&nbsp;ms), thinking for 12&nbsp;s (4 &times; 1400&nbsp;ms segments, question mark in the third), then done &mdash; then it repeats. This is what the Rust module in the fork implements; the captures under it are that module in the real terminal.</p>
+  <div class="owlrow">
+  <figure class="live" id="s-state_live">
+    <figcaption><span>Live state demo <span class="stlabel" id="st-state">idle</span></span>
+      <button type="button" class="pause" data-state="state">Pause</button></figcaption>
+    <pre class="term" id="f-state"></pre>
+    <p>In the terminal the art is magenta and the caption is dim, which is the fork's own colour choice rather than the amber of your demo.</p>
+  </figure>
+  <ul class="where">
+    <li><strong>Welcome step</strong> &mdash; idle owl over the brand line (dropped if the terminal is too short, and dropped when the connect step brings its own owl).</li>
+    <li><strong>Connect step</strong> &mdash; idle owl at the top of the panel, until the server is saved.</li>
+    <li><strong>In a session</strong> &mdash; thinking while a turn runs, done for 4 s after it stops, gone on esc or an error. The block costs five rows above the composer while a turn is running.</li>
+    <li>With <code>animations = false</code> the same states show their static frame, no cycling.</li>
+  </ul>
+  </div>
+
+  <h2>First run: welcome and connect</h2>
+  <figure class="screen" id="s-welcome"><figcaption>Welcome step, first run</figcaption><pre class="term"><span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+ready when you are.                                                                                 
+                                                                                                    
+  Welcome to <span class="b">Owl</span>, a coding agent for Open WebUI                                                     
+                                                                                                    
+&gt; <span class="b">You are running Owl in </span>/tmp/owui-run                                                              
+                                                                                                    
+  Since this folder is not version controlled, we recommend requiring approval of all edits and     
+  commands.                                                                                         
+                                                                                                    
+  1. Allow Owl to work in this folder without asking for approval                                   
+<span class="cyan">› 2. Require approval of edits and commands</span>                                                         
+                                                                                                    
+  Press enter to continue                                                                           </pre><p>The 8&nbsp;&times;&nbsp;4 owl from your package, idle, above the brand line. On a fresh home the trust question follows it.</p></figure><figure class="screen" id="s-connect"><figcaption>Connect step, empty</figcaption><pre class="term">  Welcome to <span class="b">Owl</span>, a coding agent for Open WebUI                                                     
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+ready when you are.                                                                                 
+                                                                                                    
+  Connect Owl to <span class="b">Open WebUI</span>                                                                         
+                                                                                                    
+  Server URL or hostname/IP (Enter accepts the default):                                            
+<span class="b">›</span>http://localhost:8080/api/v1                                                                       
+                                                                                                    
+  API token (optional — Enter to skip):                                                             
+ —                                                                                                  
+                                                                                                    
+  Tab switches fields · Enter moves on; Enter on the token saves                                    </pre><p>Only the welcome step's owl is shown while this step has no saved server: one owl per screen. Caret starts on the Server field.</p></figure><figure class="screen" id="s-connect_server"><figcaption>Server field, typed</figcaption><pre class="term">  Welcome to <span class="b">Owl</span>, a coding agent for Open WebUI                                                     
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+ready when you are.                                                                                 
+                                                                                                    
+  Connect Owl to <span class="b">Open WebUI</span>                                                                         
+                                                                                                    
+  Server URL or hostname/IP (Enter accepts the default):                                            
+<span class="b">›</span>http://127.0.0.1:8011/v1                                                                           
+                                                                                                    
+  API token (optional — Enter to skip):                                                             
+ —                                                                                                  
+                                                                                                    
+  Tab switches fields · Enter moves on; Enter on the token saves                                    </pre><p>A bare host becomes <code>http://HOST:8080/api/v1</code>; a bad host shows an error line and does not save. Enter moves to the token field.</p></figure><figure class="screen" id="s-connect_token"><figcaption>Token field, masked</figcaption><pre class="term">  Welcome to <span class="b">Owl</span>, a coding agent for Open WebUI                                                     
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+ready when you are.                                                                                 
+                                                                                                    
+  Connect Owl to <span class="b">Open WebUI</span>                                                                         
+                                                                                                    
+  Server URL or hostname/IP (Enter accepts the default):                                            
+ http://127.0.0.1:8011/v1                                                                           
+                                                                                                    
+  API token (optional — Enter to skip):                                                             
+<span class="b">›</span>**************                                                                                     
+                                                                                                    
+  Tab switches fields · Enter moves on; Enter on the token saves                                    </pre><p>Optional. Input is masked as you type - the row of stars above is what the terminal really shows. Enter on an empty field skips the token. The run used a throwaway test value.</p></figure><figure class="screen" id="s-connect_saved"><figcaption>After saving</figcaption><pre class="term">  Welcome to <span class="b">Owl</span>, a coding agent for Open WebUI                                                     
+                                                                                                    
+  Connect Owl to <span class="b">Open WebUI</span>                                                                         
+                                                                                                    
+  Server URL or hostname/IP (Enter accepts the default):                                            
+ http://127.0.0.1:8011/v1                                                                           
+                                                                                                    
+  API token (optional — Enter to skip):                                                             
+<span class="b">›</span>**************                                                                                     
+                                                                                                    
+  <span class="b">Saved to config.toml</span> · onboarding continues below                                                 
+                                                                                                    
+&gt; <span class="b">You are running Owl in </span>/tmp/owui-run                                                              
+                                                                                                    
+  Since this folder is not version controlled, we recommend requiring approval of all edits and     
+  commands.                                                                                         
+                                                                                                    
+  1. Allow Owl to work in this folder without asking for approval                                   
+<span class="cyan">› 2. Require approval of edits and commands</span>                                                         
+                                                                                                    
+  Press enter to continue                                                                           </pre><p>Writes <code>[model_providers.openwebui]</code> (name, base_url, experimental_bearer_token) to config.toml, applies it for the session, and the owl steps aside as the trust step continues below.</p></figure>
+
+  <h2>Inside a session</h2>
+  <p class="lede">Captured from <code>target/debug/owl</code> on this machine against a local mock Open WebUI server at <code>127.0.0.1:8011</code> (models <code>mock-gpt-mini</code>, <code>mock-second</code>) with a fresh <code>CODEX_HOME</code>. The mock replies slowly on purpose so the thinking frames are visible.</p>
+  <figure class="screen" id="s-turn_start"><figcaption>Turn starts</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">› </span>hi there                                                                                          
+                                                                                                    
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+hmm, one moment…                                                                                    
+<span class="b">•</span> <span class="b">W</span><span class="b">o</span><span class="b">r</span><span class="b">k</span><span class="b">i</span><span class="b">n</span><span class="b">g</span> (0s • esc to interrupt)                                                                   
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Run /review on my current changes                                                                 
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p>The block sits above the composer: art rows, then the caption. Elapsed time restarts on every state change, as your package does.</p></figure><figure class="screen" id="s-turn_thinking"><figcaption>3 s into the turn</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">› </span>hi there                                                                                          
+                                                                                                    
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (o,o)</span> <span class="owl">?</span>                                                                                            
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+hmm, one moment…                                                                                    
+<span class="b">•</span> <span class="b">Wor</span><span class="b">k</span><span class="b">i</span><span class="b">n</span><span class="b">g</span> (3s • esc to interrupt)                                                                   
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Run /review on my current changes                                                                 
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p>Thinking cycle: 4 segments of 1400&nbsp;ms, the pondering frame in the third one. The status line is the fork's upstream text.</p></figure><figure class="screen" id="s-turn_done"><figcaption>Reply landed</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">› </span>hi there                                                                                          
+                                                                                                    
+                                                                                                    
+• Mock WebUI is thinking. Done.                                                                     
+                                                                                                    
+<span class="owl">  ,_,</span>                                                                                               
+<span class="owl"> (^,^)</span>                                                                                              
+<span class="owl"> (   )</span>                                                                                              
+<span class="owl">  &quot; &quot;</span>                                                                                               
+all done!                                                                                           
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Run /review on my current changes                                                                 
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p>Happy frame with <em>all done!</em> for 4 s after the turn ends.</p></figure><figure class="screen" id="s-turn_after"><figcaption>A few seconds later</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">› </span>hi there                                                                                          
+                                                                                                    
+                                                                                                    
+• Mock WebUI is thinking. Done.                                                                     
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Run /review on my current changes                                                                 
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p>The window is over and the owl has stepped aside: no art, no caption, the rows are back to the session history and composer. Interrupted or failed turns skip <em>all done!</em> entirely.</p></figure>
+
+  <h2>The rest of the CLI</h2>
+  <figure class="screen" id="s-main"><figcaption>Main screen</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Write tests for @filename                                                                         
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p>Fresh home. The model line shows the bundled default until the first <code>/models</code> fetch from your server completes.</p></figure><figure class="screen" id="s-shortcuts"><figcaption>Shortcuts</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Write tests for @filename                                                                         
+                                                                                                    
+  / for commands                             ! for shell commands                                   
+  shift + enter for newline                  tab to queue message                                   
+  @ for file paths                           ctrl + v to paste images                               
+  ctrl + g to edit in external editor        esc esc to edit previous message                       
+  ctrl + c to exit                                                                                  
+  ctrl + t to view transcript                                                                       </pre><p>The <code>?</code> overlay. esc dismisses it, ctrl+t toggles thinking, ctrl+p opens the command palette, ctrl+l clears.</p></figure><figure class="screen" id="s-slash"><figcaption>Slash menu</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> /                                                                                                 
+                                                                                                    
+  <span class="cyan b">/model         choose what model and reasoning effort to use</span>                                      
+  /approvals     choose what Codex can do without approval                                          
+  /permissions   choose what Codex is allowed to do                                                 
+  /experimental  toggle beta features                                                               
+  /skills        use skills to improve how Codex performs specific tasks                            
+  /review        review my current changes and find issues                                          
+  /new           start a new chat during a conversation                                             
+  /resume        resume a saved chat                                                                </pre><p>Type <code>/</code> - the commands the fork keeps, still worded as upstream Codex wording where the feature is upstream.</p></figure><figure class="screen" id="s-model"><figcaption>Model picker</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+                                                                                                    
+  <span class="b">Select Model and Effort</span>                                                                           
+  Access legacy models by running owl -m &lt;model_name&gt; or in your config.toml                        
+                                                                                                    
+<span class="cyan b">› 1. mock-gpt-mini (current)</span>                                                                        
+  2. mock-second                                                                                    
+                                                                                                    
+  Press enter to select reasoning effort, or esc to dismiss.                                        </pre><p>Models fetched from your Open WebUI <code>/models</code> endpoint replace the ChatGPT presets. The footer now says <code>owl -m</code>.</p></figure><figure class="screen" id="s-status"><figcaption>Status card</figcaption><pre class="term">╭─────────────────────────────────────────────╮                                                     
+│ &gt;_ <span class="b">Owl</span> (v0.90.0)                            │                                                     
+│                                             │                                                     
+│ model:     mock-gpt-mini   <span class="cyan">/model</span> to change │                                                     
+│ directory: /tmp/owui-run                    │                                                     
+╰─────────────────────────────────────────────╯                                                     
+                                                                                                    
+  To get started, describe a task or try one of these commands:                                     
+                                                                                                    
+  /init - create an AGENTS.md file with instructions for Codex                                      
+  /status - show current session configuration                                                      
+  /approvals - choose what Codex can do without approval                                            
+  /permissions - choose what Codex is allowed to do                                                 
+  /model - choose what model and reasoning effort to use                                            
+  /review - review any changes and find issues                                                      
+                                                                                                    
+<span class="owl">/status</span>                                                                                             
+                                                                                                    
+╭──────────────────────────────────────────────────────────╮                                        
+│  &gt;_ <span class="b">Owl</span> (v0.90.0)                                        │                                        
+│                                                          │                                        
+│  Model:            mock-gpt-mini                         │                                        
+│  Model provider:   Open WebUI - http://127.0.0.1:8011/v1 │                                        
+│  Directory:        /tmp/owui-run                         │                                        
+│  Approval:         on-request                            │                                        
+│  Sandbox:          read-only                             │                                        
+│  Agents.md:        &lt;none&gt;                                │                                        
+│  Session:          01a16016-3040-7010-a10a-69bd07738003  │                                        
+│                                                          │                                        
+│  Token usage:      0 total  (0 input + 0 output)         │                                        
+│  Limits:           data not available yet                │                                        
+╰──────────────────────────────────────────────────────────╯                                        
+                                                                                                    
+                                                                                                    
+<span class="b">›</span> Write tests for @filename                                                                         
+                                                                                                    
+  100% context left · ? for shortcuts                                                               </pre><p><code>/status</code>: the provider line names your server. Owl has no ChatGPT account, and the old ChatGPT rate-limit line is deleted along with that plumbing, so it is absent everywhere.</p></figure>
+
+  <h2 id="s-help">owl --help</h2>
+  <figure>
+    <figcaption>Command help, from the fork's own binary</figcaption>
+    <pre class="term">Owl CLI
+
+If no subcommand is specified, options will be forwarded to the interactive CLI.
+
+Usage: owl [OPTIONS] [PROMPT]
+       owl [OPTIONS] &lt;COMMAND&gt; [ARGS]
+
+Commands:
+  exec        Run Owl non-interactively [aliases: e]
+  review      Run a code review non-interactively
+  mcp         [experimental] Run Owl as an MCP server and manage MCP servers
+  mcp-server  [experimental] Run the Owl MCP server (stdio transport)
+  app-server  [experimental] Run the app server or related tooling
+  completion  Generate shell completion scripts
+  sandbox     Run commands within an Owl-provided sandbox [aliases: debug]
+  resume      Resume a previous interactive session (picker by default; use --last to continue the
+              most recent)
+  fork        Fork a previous interactive session (picker by default; use --last to fork the most
+              recent)
+  features    Inspect feature flags
+  help        Print this message or the help of the given subcommand(s)
+
+Arguments:
+  [PROMPT]
+          Optional user prompt to start the session
+
+Options:
+  -c, --config &lt;key=value&gt;
+          Override a configuration value that would otherwise be loaded from `~/.owl/config.toml`.
+          Use a dotted path (`foo.bar.baz`) to override nested values. The `value` portion is parsed
+          as TOML. If it fails to parse as TOML, the raw string is used as a literal.
+          
+          Examples: - `-c model="o3"` - `-c 'sandbox_permissions=["disk-full-read-access"]'` - `-c
+          shell_environment_policy.inherit=all`
+
+      --enable &lt;FEATURE&gt;
+          Enable a feature (repeatable). Equivalent to `-c features.&lt;name&gt;=true`
+
+      --disable &lt;FEATURE&gt;
+          Disable a feature (repeatable). Equivalent to `-c features.&lt;name&gt;=false`
+
+  -i, --image &lt;FILE&gt;...
+          Optional image(s) to attach to the initial prompt
+
+  -m, --model &lt;MODEL&gt;
+          Model the agent should use
+
+      --oss
+          Convenience flag to select the local open source model provider. Equivalent to -c
+          model_provider=oss; verifies a local LM Studio or Ollama server is running
+
+      --local-provider &lt;OSS_PROVIDER&gt;
+          Specify which local provider to use (lmstudio, ollama, or ollama-chat). If not specified
+          with --oss, will use config default or show selection
+
+  -p, --profile &lt;CONFIG_PROFILE&gt;
+          Configuration profile from config.toml to specify default options
+
+  -s, --sandbox &lt;SANDBOX_MODE&gt;
+          Select the sandbox policy to use when executing model-generated shell commands
+          
+          [possible values: read-only, workspace-write, danger-full-access]
+
+  -a, --ask-for-approval &lt;APPROVAL_POLICY&gt;
+          Configure when the model requires human approval before executing a command
+
+          Possible values:
+          - untrusted:  Only run "trusted" commands (e.g. ls, cat, sed) without asking for user
+            approval. Will escalate to the user if the model proposes a command that is not in the
+            "trusted" set
+          - on-failure: Run all commands without asking for user approval. Only asks for approval if
+            a command fails to execute, in which case it will escalate to the user to ask for
+            un-sandboxed execution
+          - on-request: The model decides when to ask the user for approval
+          - never:      Never ask for user approval Execution failures are immediately returned to
+            the model
+
+      --full-auto
+          Convenience alias for low-friction sandboxed automatic execution (-a on-request, --sandbox
+          workspace-write)
+
+      --dangerously-bypass-approvals-and-sandbox
+          Skip all confirmation prompts and execute commands without sandboxing. EXTREMELY
+          DANGEROUS. Intended solely for running in environments that are externally sandboxed
+
+  -C, --cd &lt;DIR&gt;
+          Tell the agent to use the specified directory as its working root
+
+<span id="h-search"></span>      --search
+          Enable live web search. When enabled, owl adds a `web_search` tool the model can call; owl
+          runs each query against the `[search]` endpoint in config.toml
+
+      --add-dir &lt;DIR&gt;
+          Additional directories that should be writable alongside the primary workspace
+
+      --no-alt-screen
+          Disable alternate screen mode
+          
+          Runs the TUI in inline mode, preserving terminal scrollback history. This is useful in
+          terminal multiplexers like Zellij that follow the xterm spec strictly and disable
+          scrollback in alternate screen buffers.
+
+  -h, --help
+          Print help (see a summary with '-h')
+
+  -V, --version
+          Print version</pre>
+    <p id="s-help-note">Upstream wording survives where the feature is upstream - approvals still say "Codex wants to&hellip;" - but the ChatGPT-only subcommands (login, logout, apply, cloud) are gone from this CLI.</p>
+  </figure>
+
+  <h2 id="s-install">Getting owl onto your machine</h2>
+  <p class="lede">In the pushed repo: <code>cd Owl/owl &amp;&amp; ./install.sh</code>. The folder now carries a
+  prebuilt release binary (<code>prebuilt/</code>, built from this source on the build cluster;
+  x86_64 Linux with glibc 2.39 or newer). When it runs on your machine, <code>install.sh</code>
+  copies it to <code>~/.local/bin/owl</code> in a second &mdash; no compiling, no Rust toolchain.
+  If it cannot run on your machine, <code>install.sh</code> says so and builds from source like
+  before; <code>./install.sh --force-build</code> always compiles. The self-test covers both
+  paths, including an install with no <code>cargo</code> on <code>PATH</code> at all.</p>
+
+  <p class="note">
+    Tested here: the whole flow above ran end to end against the local mock, including saving to config.toml and the second run skipping the connect step. Not tested here: your Open WebUI on your LAN, which this sandbox cannot reach, so it has only been proven against this machine's endpoint and mock. The owl module is a re-implementation of the frames and timings you attached &mdash; the JavaScript in your package itself was never attached, so behaviour is matched to your spec, not to your code. Two decisions are still yours:
+    <ol>
+      <li>Should the owl also sit idle above the composer while the session is waiting, or only during and just after a turn (what it does now)?</li>
+      <li>Connect screen on first run only when nothing is configured (the current rule), or on every startup?</li>
+    </ol>
+    Your <code>cargo test --all-features</code> approval is noted: the per-crate suites run green on the build cluster (the full-workspace <code>--all-features</code> variant pulls in a crate that needs a BoringSSL build, which only this project's upstream CI image has).
+  </p>
+</div>
+<script>
+const ST = {"open": ["  ,_,   ", " (o,o)  ", " (   )  ", "  \" \"   "], "halfClosed": ["  ,_,   ", " (-,-)  ", " (   )  ", "  \" \"   "], "closed": ["  ,_,   ", " (_,_)  ", " (   )  ", "  \" \"   "], "happy": ["  ,_,   ", " (^,^)  ", " (   )  ", "  \" \"   "], "pondering": ["  ,_,   ", " (o,o) ?", " (   )  ", "  \" \"   "]};
+const CAPTIONS = {"idle": "ready when you are.", "thinking": "hmm, one moment…", "done": "all done!"};
+const T = {"blinkCycleMs": 8300, "halfClosedStartMs": 4900, "closedStartMs": 5020, "closedEndMs": 5270, "blinkEndMs": 5390, "thinkingSegmentMs": 1400, "thinkingCycleSegments": 4, "questionSegmentIndex": 2};
+const SCRIPT = [["idle", T.blinkCycleMs], ["thinking", 12000], ["done", 4000]];
+const TOTAL = SCRIPT.reduce((acc, item) => acc + item[1], 0);
+const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function owlFrame(name, elapsed) {
+  if (name === "done") return ST.happy;
+  if (name === "thinking") {
+    const cycle = T.thinkingSegmentMs * T.thinkingCycleSegments;
+    const seg = Math.floor((elapsed % cycle) / T.thinkingSegmentMs);
+    return seg === T.questionSegmentIndex ? ST.pondering : ST.open;
+  }
+  const e = elapsed % T.blinkCycleMs;
+  if (e < T.halfClosedStartMs) return ST.open;
+  if (e < T.closedStartMs) return ST.halfClosed;
+  if (e < T.closedEndMs) return ST.closed;
+  if (e < T.blinkEndMs) return ST.halfClosed;
+  return ST.open;
+}
+
+const S = { elapsed: 0, paused: reduce, last: "" };
+function draw() {
+  const t = S.elapsed % TOTAL;
+  let name = SCRIPT[0][0];
+  let el = 0;
+  let acc = 0;
+  for (const item of SCRIPT) {
+    if (t < acc + item[1]) { name = item[0]; el = t - acc; break; }
+    acc += item[1];
+  }
+  const text = owlFrame(name, el).join("\n") + "\n" + CAPTIONS[name];
+  if (text !== S.last) {
+    S.last = text;
+    document.getElementById("f-state").textContent = text;
+  }
+  document.getElementById("st-state").textContent = name;
+}
+draw();
+const timer = setInterval(() => { if (!S.paused) { S.elapsed += 80; draw(); } }, 80);
+const btn = document.querySelector("button.pause[data-state]");
+btn.textContent = S.paused ? "Play" : "Pause";
+btn.addEventListener("click", () => {
+  S.paused = !S.paused;
+  btn.textContent = S.paused ? "Play" : "Pause";
+});
+</script>
+</body>
+</html>

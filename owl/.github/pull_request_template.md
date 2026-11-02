@@ -1,0 +1,8 @@
+# Pull Request Requirements
+
+Before opening this Pull Request, please read the dedicated "Contributing" markdown file or your PR may be closed:
+https://github.com/0xC0FFEEBEEF/Owl/blob/main/owl/docs/contributing.md
+
+If your PR conforms to the contribution guidelines, replace this text with a detailed and high quality description of your changes.
+
+Include a link to a bug report or enhancement request.

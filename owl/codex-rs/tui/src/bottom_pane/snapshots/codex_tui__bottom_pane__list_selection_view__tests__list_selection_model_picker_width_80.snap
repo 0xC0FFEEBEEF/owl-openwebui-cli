@@ -1,0 +1,13 @@
+---
+source: tui/src/bottom_pane/list_selection_view.rs
+expression: "render_lines_with_width(&view, 80)"
+---
+                                                                                
+  Select Model and Effort                                                       
+                                                                                
+› 1. test-server-model (current)  Reasoning model on the configured server.     
+                                  Balance of quality and speed.                 
+  2. test-server-model-2          Smaller model on the same server. Faster,     
+                                  but less capable.                             
+  3. test-server-model-3          Older model on the same server. Kept for      
+                                  compatibility with older automations.

@@ -1,0 +1,13 @@
+---
+source: tui/src/onboarding/connect.rs
+expression: terminal.backend()
+---
+  Connect Owl to Open WebUI
+
+  Server URL or hostname/IP (Enter accepts the default):
+ http://owui.lan:8080/api/v1
+
+  API token (optional — Enter to skip):
+›***
+
+  Tab switches fields · Enter moves on; Enter on the token saves

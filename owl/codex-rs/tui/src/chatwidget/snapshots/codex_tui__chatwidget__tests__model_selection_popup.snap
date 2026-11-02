@@ -1,0 +1,11 @@
+---
+source: tui/src/chatwidget/tests.rs
+expression: popup
+---
+  Select Model and Effort
+  Use a model not listed here with owl -m <model_name> or in your config.toml
+
+› 1. test-server-model (current)  test-server-model description
+  2. test-server-model-2          test-server-model-2 description
+
+  Press enter to select reasoning effort, or esc to dismiss.

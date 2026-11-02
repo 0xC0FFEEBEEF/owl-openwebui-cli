@@ -1,0 +1,13 @@
+---
+source: tui/src/onboarding/trust_directory.rs
+expression: terminal.backend()
+---
+> You are running Owl in /workspace/project
+
+  Since this folder is version controlled, you may wish to allow Owl
+  to work in this folder without asking for approval.
+
+› 1. Yes, allow Owl to work in this folder without asking for approval
+  2. No, ask me to approve edits and commands
+
+  Press enter to continue

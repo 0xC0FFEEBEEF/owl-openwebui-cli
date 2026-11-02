@@ -1,0 +1,16 @@
+---
+source: tui/src/chatwidget/tests.rs
+expression: terminal.backend()
+---
+"                                                                                "
+"  ,_,                                                                           "
+" (o,o)                                                                          "
+" (   )                                                                          "
+"  " "                                                                           "
+"hmm, one moment…                                                                "
+"• Booting MCP server: alpha (0s • esc to interrupt)                             "
+"                                                                                "
+"                                                                                "
+"› Ask owl to do anything                                                        "
+"                                                                                "
+"  100% context left · ? for shortcuts                                           "

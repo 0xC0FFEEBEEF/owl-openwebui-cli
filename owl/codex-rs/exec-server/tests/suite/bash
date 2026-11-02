@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Resolves the patched Bash (the Bash fork that honors BASH_EXEC_WRAPPER) that
+# the exec-server integration tests need.
+
+# Build it from source - the patch ships in this repo, see the "Patched Bash"
+# section of codex-rs/exec-server/README.md - and point the tests at it:
+#
+#   export OWL_PATCHED_BASH=/path/to/patched/bash
+#
+# Fallback: a build placed at codex-rs/target/patched-bash/bash is used
+# automatically.
+
+if [ -n "${OWL_PATCHED_BASH:-}" ] && [ -x "${OWL_PATCHED_BASH}" ]; then
+  exec "$OWL_PATCHED_BASH" "$@"
+fi
+
+crate_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+candidate="$crate_root/../target/patched-bash/bash"
+if [ -x "$candidate" ]; then
+  exec "$candidate" "$@"
+fi
+
+echo "owl: patched Bash not found for these tests." >&2
+echo "owl: build it with shell-tool-mcp/patches/bash-exec-wrapper.patch (see exec-server/README.md) and set OWL_PATCHED_BASH." >&2
+exit 127
